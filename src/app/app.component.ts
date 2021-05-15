@@ -1,3 +1,4 @@
+import { FavoriteChangedEventArgs } from './favorite/favorite.component';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'hello-world';
+  post = {
+    title: "titolo",
+    isFavorite: false,
+    isLike: false,
+   
+  }
+
+  likesCount:number = 3;
+
+  title = 'Angular course today is';
+
+  change(event: FavoriteChangedEventArgs) {
+
+    //this.post.isFavorite = isFavorite;
+    console.log(event)
+  }
+
 }

@@ -1,0 +1,7 @@
+.course-container {
+    display: flex;
+    justify-content: space-around;
+}
+.author {
+    width: 400px;
+}

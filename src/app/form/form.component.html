@@ -1,0 +1,19 @@
+<form #f="ngForm" class="form" (ngSubmit)="submit(f.value)">
+    <label for="courseName">course name</label>
+    <input required type="text" name="courseName" #courseName="ngModel" ngModel>
+    <div *ngIf="courseName.touched && courseName.invalid">
+        <div>name is required</div>
+    </div>
+    <select name="state" ngModel>
+      <option value="" disabled>Choose a state</option>
+      <option *ngFor="let state of states" [ngValue]="state">
+        {{ state.abbrev }}
+      </option>
+    </select>
+    <label for="checkbox">
+        <input type="checkbox" name="courseCeck" ngModel/>
+        Click here
+    </label>
+    <button class="button" type="submit" [disabled]="f.invalid">Submit</button>
+  </form>
+  <p>Form value: {{ f.value | json }}</p>
