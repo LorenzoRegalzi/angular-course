@@ -1,3 +1,5 @@
+import { AppError } from './common/errors/app-errors';
+
 import { PostService } from './post.service';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -31,15 +33,16 @@ import { PostComponent } from './post/post.component';
     LikeComponent,
     ZippyComponent,
     FormComponent,
-    PostComponent
+    PostComponent,
+   
   ],
   imports: [
     BrowserModule,
     FormsModule,
     FontAwesomeModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [CoursesService, AuthorsService, PostService],
+  providers: [CoursesService, AuthorsService, PostService, AppError],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
