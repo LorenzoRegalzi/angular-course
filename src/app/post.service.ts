@@ -1,23 +1,41 @@
+
+import { AppError } from './common/errors/app-errors';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-//import { Observable } from 'rxjs/Observable'
-//import 'rxjs/add/operator/catch'
+
+
+
+import { retry, catchError } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
   private url = 'https://jsonplaceholder.typicode.com/posts';
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private errorApp: AppError) { }
 
  
   getPost(){
-    return this.http.get(this.url)
-  }
+    return this.http.get(this.url).pipe(
+      
+      catchError(this.errorApp.handleError)
+  )}
   createPost(post:object){
-    return  this.http.post(this.url, JSON.stringify(post))
-  }
-  deletePost(id:any){
-    return  this.http.delete(this.url + '/' + id)
-  }
+    return  this.http.post(this.url, JSON.stringify(post)).pipe(
+
+      catchError(this.errorApp.handleError)
+  )}
+  
+
+
+  deletePost(id:number){
+    return  this.http.delete(this.url + '/' + id).pipe(
+      
+      catchError(this.errorApp.handleError)
+  )}
+
+
+
+
 }
