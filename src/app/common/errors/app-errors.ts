@@ -6,6 +6,8 @@ export class AppError {
     }
     handleError(error:any) {
         let errorMessage = '';
+        // if (error.status === 404)
+        //     alert('different type of message for differente type of error code')
         if (error.error instanceof ErrorEvent) {
       
           // client-side error
