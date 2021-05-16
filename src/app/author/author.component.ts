@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthorsService } from '../authors.service';
+import { AuthorsService } from '../services/authors.service';
 import { faStar as farBell } from '@fortawesome/free-regular-svg-icons';
 import { faStar as fasBell } from '@fortawesome/free-solid-svg-icons';
 import { faEye as fasEye } from '@fortawesome/free-solid-svg-icons';

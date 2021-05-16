@@ -1,4 +1,4 @@
-import { PostService } from './../post.service';
+import { PostService } from '../services/post.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -17,43 +17,44 @@ export class PostComponent implements OnInit {
     
   }
   ngOnInit(): void {
-    this.service.getPost()
-      .subscribe(response => {
-        this.posts = response;
-      }, error => {
-        console.log(error);
-      })
+    this.service.getAll()
+      .subscribe(posts => this.posts = posts)
   }
 
   createpost(input: HTMLInputElement){
-    let post = {title : input.value}
+    let post = {title : input.value, id: {}};
     input.value = '';
+    this.posts.splice(0, 0, post);
 
-    this.service.createPost(post)
-      .subscribe(response => {
+    this.service.create(post)
+      .subscribe(
+        newPost => {
+          post.id = newPost;
+          
         
-        this.posts.splice(0, 0, post);
-        console.log(response);
-      }, error => {
+      }, (error: Response) => {
         console.log(error);
+        this.posts.splice(0, 1)
       });
   }
-  updatepost(post:any){
 
-    this.http.patch(this.url + '/' + post.id, JSON.stringify({isReadable : true}))
-      .subscribe(response => {
-        console.log(response);
+  updatepost(post:any){
+    this.service.update(post)
+      .subscribe(updatepost => {
+        console.log(updatepost);
     });
   }
-  deletepost(post:any){
 
-    this.service.deletePost(post)
+
+  deletepost(post:any){
+    let index = this.posts.indexOf(post)
+    this.posts.splice(index, 1);
+
+    this.service.delete(post)
       .subscribe(
-        response => {
-        let index = this.posts.indexOf(post)
-        this.posts.splice(index, 1);
-        console.log(index);
-    }, (error: Response) => {
+        null, 
+        (error: Response) => {
+      this.posts.splice(index, 0, post)
       console.log(error);
     });
   }
